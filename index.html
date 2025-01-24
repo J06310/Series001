@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lista de Videos Modal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .folder-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+
+        .folder {
+            cursor: pointer;
+            text-align: center;
+            margin: 10px;
+            width: calc(33.33% - 20px);
+            position: relative;
+            color: #FFFFFF;
+        }
+
+        .folder img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .folder:hover img {
+            transform: scale(1.05);
+        }
+
+        .modal, .inner-modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            background-color: #0, 0, 0, 0;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .modal-content img {
+            width: 50%;
+            display: block;
+            margin: 0 auto 15px;
+            border-radius: 8px;
+        }
+
+        .close {
+            color: #ffffff;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #ffcc00;
+            text-decoration: none;
+        }
+
+        .modal-info {
+            font-size: 15px;
+            color: #FFFFFF;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        .modal-info h3 {
+            color: #ffcc00;
+            font-size: 22px;
+            white-space: nowrap;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .modal-info p {
+            margin: 8px 0;
+        }
+
+        .icono {
+            color: #FFFFFF;
+            margin-right: 8px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            color: #FFFFFF;
+            background-color: #FF0000;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin: 5px;
+            display: inline-block;
+            white-space: nowrap;
+            width: auto;
+            text-align: center;
+        }
+
+        .button:hover {
+            background-color: #FF0000;
+        }
+
+        .video-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="folder-container">
+<!-- Serie #1 -->
+    <div class="folder" onclick="openModal('modalS1')">
+        <img src="https://image.tmdb.org/t/p/original/szk2hXe7etcSgyp6WxXCW1an301.jpg" alt="How to Sell Drugs Online (Fast)">
+    </div>
+<!-- Serie #2 -->
+    <div class="folder" onclick="openModal('modalS2')">
+    <img src="https://image.tmdb.org/t/p/original/ixY3Ulu26di9b3cDf9yrLhwsiYy.jpg" alt="Nadie nos va a extrañar">
+</div>
+<!-- Serie #3 -->
+    <div class="folder" onclick="openModal('modalS3')">
+    <img src="https://image.tmdb.org/t/p/original/uZCenpTb0xOmPPfdBnuvDwhw9cn.jpg" alt="Wednesday">
+</div>
+<!-- Serie #4 -->
+<div class="folder" onclick="openModal('modalS4')">
+    <img src="https://image.tmdb.org/t/p/original/vZQKQcB5n91c6tBofAVXq88Uuti.jpg" alt="The End of the F***ing World">
+</div>
+<!-- Serie #5 -->
+<div class="folder" onclick="openModal('modalS5')">
+    <img src="https://image.tmdb.org/t/p/original/poeF8MRkSJQSoJ5uMVBkKEXADxF.jpg" alt="Ni una más">
+</div>
+<!-- Serie #6 -->
+<div class="folder" onclick="openModal('modalS6')">
+    <img src="https://image.tmdb.org/t/p/original/9UZ03UbGKVx2hB0GT8xnFmze9gX.jpg" alt="Oríllese a la Orilla">
+</div>
+<!-- Serie #7 -->
+<div class="folder" onclick="openModal('modalS7')">
+    <img src="https://image.tmdb.org/t/p/original/sDbpr5VoxlcQvzvWFECr7bXCAwg.jpg" alt="Bad Monkey">
+</div>
+<!-- Serie #8 -->
+<div class="folder" onclick="openModal('modalS8')">
+    <img src="https://image.tmdb.org/t/p/original/mzkstyDSsTRswCMRvoBD5ULPnIt.jpg" alt="Asesinato para principiantes">
+</div>
+<!-- Serie #9 -->
+<div class="folder" onclick="openModal('modalLoki')">
+    <img src="https://image.tmdb.org/t/p/original/oJdVHUYrjdS2IqiNztVIP4GPB1p.jpg" alt="Loki">
+</div>
+<!-- Serie #10 -->
+<div class="folder" onclick="openModal('modalDulceEstafa')">
+    <img src="https://image.tmdb.org/t/p/original/oSdaPdSQsXby6CswuDoRxonMrE3.jpg" alt="Dulce Estafa">
+</div>
+<!-- Serie #11 -->
+<div class="folder" onclick="openModal('modalJuegosSexuales')">
+    <img src="https://image.tmdb.org/t/p/original/tWtcyehBCO9fksIj30pdtVldntw.jpg" alt="Juegos Sexuales">
+</div>
+<!-- Serie #12 -->
+<div class="folder" onclick="openModal('modalComoAguaParaChocolate')">
+    <img src="https://image.tmdb.org/t/p/original/pXNcd4z8eBihLO9I7bIVoK4mtQt.jpg" alt="Como agua para chocolate">
+</div>
+</div>
+
+<!-- AQUI VAN LOS MODALES DE LAS SERIES -->
+
+<!-- SERIE "COMO VENDER DR0G#$ ONLINE (RÁPIDO)" -->
+
+<!-- MODAL -->
+
+<div id="modalS1" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalS1')">×</span>
+        <img src="https://image.tmdb.org/t/p/original/szk2hXe7etcSgyp6WxXCW1an301.jpg" alt="Poster de How to Sell Drugs Online (Fast)">
+        <h3>COMO VENDER DR0G#S ONLINE (RÁPIDO)</h3>
+        <div class="modal-info">
+            <p><i class="fas fa-calendar-alt icono"></i><strong>Año:</strong> 2019</p>
+            <p><i class="fas fa-film icono"></i><strong>Género:</strong> Comedia, Crimen, Drama</p>
+            <p><i class="fas fa-tv icono"></i><strong>Temporadas:</strong> 3</p>
+            <p><i class="fas fa-list icono"></i><strong>Episodios:</strong> 18</p>
+            <p><i class="fas fa-signal icono"></i><strong>Estado:</strong> Finalizada</p>
+            <p><i class="fas fa-info-circle icono"></i><strong>Sinopsis:</strong> Para recuperar a su exnovia, un adolescente comienza a vender éxtasis por internet y se convierte en uno de los traficantes más grandes de Europa.</p>
+            <div class="video-buttons">
+                <span class="button" onclick="openInnerModal('innerModalS#CVDOR#T1')">TEMPORADA 1</span>
+                <span class="button" onclick="openInnerModal('innerModalS#CVDOR#T2')">TEMPORADA 2</span>
+                <span class="button" onclick="openInnerModal('innerModalS#CVDOR#T3')">TEMPORADA 3</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TEMPORADA 1 -->
+
+<div id="innerModalS#CVDOR#T1" class="inner-modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeInnerModal('innerModalS#CVDOR#T1')">×</span>
+        <div class="video-buttons">
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lL2lrbHg3NWttNGprNA==" class="button" target="_blank">Episodio 1</a>
+<a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lL3l0YnMzNWllajJiMg==" class="button" target="_blank">Episodio 2</a>
+<a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lL2R3MGNrdGM1NWs0YQ==" class="button" target="_blank">Episodio 3</a>
+<a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lL3NjYThrbG11anN1Zw==" class="button" target="_blank">Episodio 4</a>
+<a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lLzM4bWl4aXdsYW5lcA==" class="button" target="_blank">Episodio 5</a>
+<a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lLzZnbjZoc3Bva20wZQ==" class="button" target="_blank">Episodio 6</a>
+        </div>
+    </div>
+</div>
+
+<!-- TEMPORADA 2 -->
+
+<div id="innerModalS#CVDOR#T2" class="inner-modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeInnerModal('innerModalS#CVDOR#T2')">×</span>
+        <div class="video-buttons">
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lL2gzNmxpOW80dTY0bg==" class="button" target="_blank">Episodio 1</a>
+<a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lL2dvbTUydnNta2g2Mw==" class="button" target="_blank">Episodio 2</a>
+<a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lLzM4YmNuMmtyd2x1OA==" class="button" target="_blank">Episodio 3</a>
+<a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lL2t3Y2kxbHllOG96MQ==" class="button" target="_blank">Episodio 4</a>
+<a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lL2xoOTJlYmY1ZWRhZA==" class="button" target="_blank">Episodio 5</a>
+<a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lL2tib3gwNGx2YWdxeQ==" class="button" target="_blank">Episodio 6</a>
+        </div>
+    </div>
+</div>
+
+<!-- TEMPORADA 3 -->
+
+<div id="innerModalS#CVDOR#T3" class="inner-modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeInnerModal('innerModalS#CVDOR#T3')">×</span>
+        <div class="video-buttons">
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lL2p3anV2enI4YWxleQ==" class="button" target="_blank">Episodio 1</a>
+<a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lL2s0eXU5djVlYTJ4YQ==" class="button" target="_blank">Episodio 2</a>
+<a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lL21hZHBqeHF1am81cw==" class="button" target="_blank">Episodio 3</a>
+<a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lLzdhOTJlZnVxbXpwcg==" class="button" target="_blank">Episodio 4</a>
+<a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lLzl6OTRlandyNXpmZg==" class="button" target="_blank">Episodio 5</a>
+<a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lL3Axc3h0c29kbDdldQ==" class="button" target="_blank">Episodio 6</a>
+        </div>
+    </div>
+</div>
+
+<!-- SERIE "NADIE NOS VA A EXTRAÑAR" -->
+
+<!-- MODAL -->
+
+<div id="modalS2" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalS2')">×</span>
+        <img src="https://image.tmdb.org/t/p/original/ixY3Ulu26di9b3cDf9yrLhwsiYy.jpg" alt="Póster de Nadie nos va a extrañar">
+        <h3>NADIE NOS VA A EXTRAÑAR</h3>
+        <div class="modal-info">
+            <p><i class="fas fa-calendar-alt icono"></i><strong>Año:</strong> 2024</p>
+            <p><i class="fas fa-film icono"></i><strong>Género:</strong> Drama, Comedia</p>
+            <p><i class="fas fa-tv icono"></i><strong>Temporadas:</strong> 1</p>
+            <p><i class="fas fa-list icono"></i><strong>Episodios:</strong> 8</p>
+            <p><i class="fas fa-signal icono"></i><strong>Estado:</strong> Finalizada</p>
+            <p><i class="fas fa-info-circle icono"></i><strong>Sinopsis:</strong> Son los 90 y cinco losers manejan un negocio ilegal en su prepa: venden tareas y trabajos a sus compañeros. ¿La ventaja? Nadie sospecha nunca de los nerds. Su negocio les trae dinero y popularidad, pero las hormonas y los conflictos de la edad amenazan con arruinarlo todo. Si el negocio colapsa, el futuro de todos y su amistad estarían en riesgo.</p>
+            <div class="video-buttons">
+                <span class="button" onclick="openInnerModal('innerModalS#NNVAET1')">TEMPORADA 1</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TEMPORADA 1 -->
+
+<div id="innerModalS#NNVAET1" class="inner-modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeInnerModal('innerModalS#NNVAET1')">×</span>
+        <div class="video-buttons">
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9jNDhqbHFhOWEzbHQ=" class="button" target="_blank">Episodio 1</a>
+<a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS92MnA2NmNtdnJxamg=" class="button" target="_blank">Episodio 2</a>
+<a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS94MHRuNzNxcGxvanE=" class="button" target="_blank">Episodio 3</a>
+<a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS85ZTV2N3RvMngwYW4=" class="button" target="_blank">Episodio 4</a>
+<a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9vemRrN3k0M3A1OG4=" class="button" target="_blank">Episodio 5</a>
+<a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS83dnUycTMxOW1xNHQ=" class="button" target="_blank">Episodio 6</a>
+<a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9nMHc4ODIwNDg3c3c=" class="button" target="_blank">Episodio 7</a>
+<a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9rMzkxMnhqYnE4ZTQ=" class="button" target="_blank">Episodio 8</a>
+        </div>
+    </div>
+</div>
+
+<!-- SERIE "WEDNESDAY" -->
+
+<!-- MODAL -->
+
+<div id="modalS3" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalS3')">×</span>
+        <img src="https://image.tmdb.org/t/p/original/uZCenpTb0xOmPPfdBnuvDwhw9cn.jpg" alt="Poster de Wednesday">
+        <h3>MIÉRCOLES</h3>
+        <div class="modal-info">
+            <p><i class="fas fa-calendar-alt icono"></i><strong>Año:</strong> 2022</p>
+            <p><i class="fas fa-film icono"></i><strong>Género:</strong> Sci-Fi & Fantasy, Misterio, Comedia</p>
+            <p><i class="fas fa-tv icono"></i><strong>Temporadas:</strong> 1</p>
+            <p><i class="fas fa-list icono"></i><strong>Episodios:</strong> 8</p>
+            <p><i class="fas fa-signal icono"></i><strong>Estado:</strong> Continúa</p>
+            <p><i class="fas fa-info-circle icono"></i><strong>Sinopsis:</strong> Inteligente, sarcástica y un poco muerta por dentro, Merlina Addams investiga una ola de asesinatos mientras hace nuevos amigos (y enemigos) en la Academia Nunca Más.</p>
+            <div class="video-buttons">
+                <span class="button" onclick="openInnerModal('innerModalS#WT1')">TEMPORADA 1</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TEMPORADA 1 -->
+
+<div id="innerModalS#WT1" class="inner-modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeInnerModal('innerModalS#WT1')">×</span>
+        <div class="video-buttons">
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9leHppODR3Mno2ejY=" class="button" target="_blank">Episodio 1</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9kZ2N5ZTRqMzI1dWE=" class="button" target="_blank">Episodio 2</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS81cWV3ZWUzeHB2cjc=" class="button" target="_blank">Episodio 3</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9ydWJsNnpxdmo5ZjE=" class="button" target="_blank">Episodio 4</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9oZnR5bTZpeWR5MGs=" class="button" target="_blank">Episodio 5</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS85NTQ3ZHg4dDNteXY=" class="button" target="_blank">Episodio 6</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9ueGdlamZ2c2pqb2o=" class="button" target="_blank">Episodio 7</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS8yYXNqa2Qzb2o4aDk=" class="button" target="_blank">Episodio 8</a>
+        </div>
+    </div>
+</div>
+
+<!-- SERIE "THE END OF THE F***ING WORLD" -->
+
+<!-- MODAL -->
+
+<div id="modalS4" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalS4')">×</span>
+        <img src="https://image.tmdb.org/t/p/original/vZQKQcB5n91c6tBofAVXq88Uuti.jpg" alt="Poster de The End of the F***ing World">
+        <h3>THE END OF THE F***ING WORLD</h3>
+        <div class="modal-info">
+            <p><i class="fas fa-calendar-alt icono"></i><strong>Año:</strong> 2017</p>
+            <p><i class="fas fa-film icono"></i><strong>Género:</strong> Comedia, Drama, Crimen</p>
+            <p><i class="fas fa-tv icono"></i><strong>Temporadas:</strong> 2</p>
+            <p><i class="fas fa-list icono"></i><strong>Episodios:</strong> 16</p>
+            <p><i class="fas fa-signal icono"></i><strong>Estado:</strong> Finalizada</p>
+            <p><i class="fas fa-info-circle icono"></i><strong>Sinopsis:</strong> Esta no es la típica historia de chico conoce a chica. James y Alyssa, dos adolescentes rebeldes, se embarcan en un viaje por carretera como nunca habían imaginado. Basada en la novela gráfica de Charles Forsman. Un psicópata en ciernes y una rebelde hambrienta de aventuras comparten un viaje fatídico por carretera.</p>
+            <div class="video-buttons">
+                <span class="button" onclick="openInnerModal('innerModalS#TEOTFWT1')">TEMPORADA 1</span>
+                <span class="button" onclick="openInnerModal('innerModalS#TEOTFWT2')">TEMPORADA 2</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TEMPORADA 1 -->
+
+<div id="innerModalS#TEOTFWT1" class="inner-modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeInnerModal('innerModalS#TEOTFWT1')">×</span>
+        <div class="video-buttons">
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS85eW1wY3p5eHp6OTU="
+               class="button" target="_blank">Episodio 1</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9oanN1OTN2ejc5ZnE="
+               class="button" target="_blank">Episodio 2</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9waHdkaGJid3k5ajU="
+               class="button" target="_blank">Episodio 3</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS83a2Z1amZnaXQ4dXg="
+               class="button" target="_blank">Episodio 4</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9hbzRkZ2VqdWt5NTk="
+               class="button" target="_blank">Episodio 5</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS8ybnllbGRrMW1yZTk="
+               class="button" target="_blank">Episodio 6</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS8yc3VobHVoYTAzc2Y="
+               class="button" target="_blank">Episodio 7</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9mNnJ2OHg4MnRjNGY="
+               class="button" target="_blank">Episodio 8</a>
+        </div>
+    </div>
+</div>
+
+<!-- TEMPORADA 2 -->
+
+<div id="innerModalS#TEOTFWT2" class="inner-modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeInnerModal('innerModalS#TEOTFWT2')">×</span>
+        <div class="video-buttons">
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9kNzl4YmEwaDA1bTY="
+               class="button" target="_blank">Episodio 1</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS91b2lzNTFxZ3pucXI="
+               class="button" target="_blank">Episodio 2</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS83ZTM0emFhMXl2OHo="
+               class="button" target="_blank">Episodio 3</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9xZjM1enJ6bDcxM3Q="
+               class="button" target="_blank">Episodio 4</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS82cnA3Z2d6NXI4NGU="
+               class="button" target="_blank">Episodio 5</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9vOWQ0YzdvZWd2d2g="
+               class="button" target="_blank">Episodio 6</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS8ydzgyOGh0d2oyOTI="
+               class="button" target="_blank">Episodio 7</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS90d2l2MGFtaDZmdjA="
+               class="button" target="_blank">Episodio 8</a>
+        </div>
+    </div>
+</div>
+
+<!-- SERIE "NI UNA MÁS" -->
+
+<!-- MODAL -->
+
+<div id="modalS5" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalS5')">×</span>
+        <img src="https://image.tmdb.org/t/p/original/poeF8MRkSJQSoJ5uMVBkKEXADxF.jpg" alt="Poster de Ni una más">
+        <h3>NI UNA MÁS</h3>
+        <div class="modal-info">
+            <p><i class="fas fa-calendar-alt icono"></i><strong>Año:</strong> 2024</p>
+            <p><i class="fas fa-film icono"></i><strong>Género:</strong> Drama</p>
+            <p><i class="fas fa-tv icono"></i><strong>Temporadas:</strong> 1</p>
+            <p><i class="fas fa-list icono"></i><strong>Episodios:</strong> 8</p>
+            <p><i class="fas fa-signal icono"></i><strong>Estado:</strong> Continúa</p>
+            <p><i class="fas fa-info-circle icono"></i><strong>Sinopsis:</strong> Tras denunciar una agresión sexual en su escuela, una chica de 17 años se convierte en el centro de una investigación que afecta su vida y sus vínculos.</p>
+            <div class="video-buttons">
+                <span class="button" onclick="openInnerModal('innerModalS#NUMT1')">TEMPORADA 1</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TEMPORADA 1 -->
+
+<div id="innerModalS#NUMT1" class="inner-modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeInnerModal('innerModalS#NUMT1')">×</span>
+        <div class="video-buttons">
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9ieXpmbW9kY3VueDM=" class="button" target="_blank">Episodio 1</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9vcjJrajdlN25wanc=" class="button" target="_blank">Episodio 2</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9naTVtc3d1dzI3bDQ=" class="button" target="_blank">Episodio 3</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9vODJhcWVkbnNjbnk=" class="button" target="_blank">Episodio 4</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9ranRwMW4zcHAyaWw=" class="button" target="_blank">Episodio 5</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS82b3hnczFmdXFpajE=" class="button" target="_blank">Episodio 6</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9icDNrZDY0Zmg5b3M=" class="button" target="_blank">Episodio 7</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS82M3A1MG1uMGZ0dGU=" class="button" target="_blank">Episodio 8</a>
+        </div>
+    </div>
+</div>
+
+<!-- SERIE "ORÍLLESE A LA ORILLA" -->
+
+<!-- MODAL -->
+
+<!-- Modal de la Serie Oríllese a la Orilla -->
+<div id="modalS6" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalS6')">×</span>
+        <img src="https://image.tmdb.org/t/p/original/9UZ03UbGKVx2hB0GT8xnFmze9gX.jpg" alt="Poster de Oríllese a la Orilla">
+        <h3>ORÍLLESE A LA ORILLA</h3>
+        <div class="modal-info">
+            <p><i class="fas fa-calendar-alt icono"></i><strong>Año:</strong> 2024</p>
+            <p><i class="fas fa-film icono"></i><strong>Género:</strong> Comedia</p>
+            <p><i class="fas fa-tv icono"></i><strong>Temporadas:</strong> 1</p>
+            <p><i class="fas fa-list icono"></i><strong>Episodios:</strong> 12</p>
+            <p><i class="fas fa-signal icono"></i><strong>Estado:</strong> Continúa</p>
+            <p><i class="fas fa-info-circle icono"></i><strong>Sinopsis:</strong> Al perder su trabajo, Brayan y Toña deciden entrar a la academia de policía, pero se meten en problemas durante el tiempo que pasan allí</p>
+            <div class="video-buttons">
+                <span class="button" onclick="openInnerModal('innerModalS#OALOT1')">TEMPORADA 1</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TEMPORADA 1 -->
+
+<!-- Modal de Episodios de la Temporada 1 de Oríllese a la Orilla -->
+<div id="innerModalS#OALOT1" class="inner-modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeInnerModal('innerModalS#OALOT1')">×</span>
+        <div class="video-buttons">
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS8wZHk0MnNndjV0YWg=" class="button" target="_blank">Episodio 1</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9sYjNlaW1idWNpeTg=" class="button" target="_blank">Episodio 2</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9vd2tnM3RnNmlqNG0=" class="button" target="_blank">Episodio 3</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9sOXFpbXo1cmNxODM=" class="button" target="_blank">Episodio 4</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9oOG04bW9mYmRxaTc=" class="button" target="_blank">Episodio 5</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9vZGNqdXZrNmJ3dGo=" class="button" target="_blank">Episodio 6</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9xemlwaWdzeDVneTE=" class="button" target="_blank">Episodio 7</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS92ZmFremkydHUyeDQ=" class="button" target="_blank">Episodio 8</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS8yaXQyYXlpd2w1cGY=" class="button" target="_blank">Episodio 9</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS94M2ljeHBjNDBpazc=" class="button" target="_blank">Episodio 10</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS80OTJpdmoxMm04bmY=" class="button" target="_blank">Episodio 11</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9wMGJoZGE1dXVodmE=" class="button" target="_blank">Episodio 12</a>
+        </div>
+    </div>
+</div>
+
+<!-- SERIE "BAD MONKEY" -->
+
+<!-- MODAL -->
+
+<div id="modalS7" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalS7')">×</span>
+        <img src="https://image.tmdb.org/t/p/original/sDbpr5VoxlcQvzvWFECr7bXCAwg.jpg" alt="Poster de Bad Monkey">
+        <h3>MONO MALO</h3>
+        <div class="modal-info">
+            <p><i class="fas fa-calendar-alt icono"></i><strong>Año:</strong> 2024</p>
+            <p><i class="fas fa-film icono"></i><strong>Género:</strong> Comedia, Crimen</p>
+            <p><i class="fas fa-tv icono"></i><strong>Temporadas:</strong> 1</p>
+            <p><i class="fas fa-list icono"></i><strong>Episodios:</strong> 10</p>
+            <p><i class="fas fa-signal icono"></i><strong>Estado:</strong> Continúa</p>
+            <p><i class="fas fa-info-circle icono"></i><strong>Sinopsis:</strong> Un inspector de policía que ahora trabaja como inspector de restaurantes en el sur de Florida cae en un mundo de codicia y corrupción cuando un turista encuentra un brazo cercenado mientras pescaba. Y, sí, hay un mono.</p>
+            <div class="video-buttons">
+                <span class="button" onclick="openInnerModal('innerModalS#BMT1')">TEMPORADA 1</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TEMPORADA 1 -->
+
+<div id="innerModalS#BMT1" class="inner-modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeInnerModal('innerModalS#BMT1')">×</span>
+        <div class="video-buttons">
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9pcGxheWVyaGxzLmNvbS9lLzI2YzlmemFjY3V1bw==" class="button" target="_blank">Episodio 1</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9pcGxheWVyaGxzLmNvbS9lLzgxeDVkNjBmNmpmMg==" class="button" target="_blank">Episodio  2</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9pcGxheWVyaGxzLmNvbS9lL2pmNnRuNDI5YzlxMA==" class="button" target="_blank">Episodio 3</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9pcGxheWVyaGxzLmNvbS9lL2x4bGFrdGYydWxnYQ==" class="button" target="_blank">Episodio 4</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9pcGxheWVyaGxzLmNvbS9lLzQ4NjZuZHBob253cg==" class="button" target="_blank">Episodio 5</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9pcGxheWVyaGxzLmNvbS9lLzR3YnV0Zzg3c2diMQ==" class="button" target="_blank">Episodio 6</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9pcGxheWVyaGxzLmNvbS9lLzExa3ZoN2YwMnl2OQ==" class="button" target="_blank">Episodio 7</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9pcGxheWVyaGxzLmNvbS9lL2hnMXVheHo3bXp4OA==" class="button" target="_blank">Episodio 8</a></>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9pcGxheWVyaGxzLmNvbS9lL2FiNTFjc2NxcXlidg==" class="button" target="_blank">Episodio 9</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9pcGxheWVyaGxzLmNvbS9lL2syZHg1d3FpbGI3Zg==" class="button" target="_blank">Episodio 10</a>
+        </div>
+    </div>
+</div>
+
+<!-- SERIE "ASESINATO PARA PRINCIPIANTES" -->
+
+<!-- MODAL -->
+
+<div id="modalS8" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalS8')">×</span>
+        <img src="https://image.tmdb.org/t/p/original/mzkstyDSsTRswCMRvoBD5ULPnIt.jpg" alt="Poster de Asesinato para principiantes">
+        <h3>ASESINATO PARA PRINCIPIANTES</h3>
+        <div class="modal-info">
+            <p><i class="fas fa-calendar-alt icono"></i><strong>Año:</strong> 2024</p>
+            <p><i class="fas fa-film icono"></i><strong>Género:</strong> Crime, Misterio</p>
+            <p><i class="fas fa-tv icono"></i><strong>Temporadas:</strong> 1</p>
+            <p><i class="fas fa-list icono"></i><strong>Episodios:</strong> 6</p>
+            <p><i class="fas fa-signal icono"></i><strong>Estado:</strong> Continúa</p>
+            <p><i class="fas fa-info-circle icono"></i><strong>Sinopsis:</strong> Pip Fitz-Amobi, una mujer brillante, no está segura de si la colegiala Andie Bell fue asesinada por su amante Sal Singh hace cinco años. ¿Hasta dónde llegarán para proteger a Pip de saber la verdad si resulta que Sal Singh no es el asesino?</p>
+        </div>
+        <a href="#" class="button" onclick="openInnerModal('innerModalS#AGGGTMT1')">TEMPORADA 1</a>
+    </div>
+</div>
+
+<!-- TEMPORADA 1 -->
+
+<div id="innerModalS#AGGGTMT1" class="inner-modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeInnerModal('innerModalS#AGGGTMT1')">×</span>
+        <div class="video-buttons">
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9pcGxheWVyaGxzLmNvbS9lLzllaHJhcm9vc2prdw==" class="button" target="_blank">Episodio 1</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9pcGxheWVyaGxzLmNvbS9lL3Njdmd2eTlpd3JieQ==" class="button" target="_blank">Episodio 2</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9pcGxheWVyaGxzLmNvbS9lL3NjenVjcWFkcnZ0eQ==" class="button" target="_blank">Episodio 3</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9pcGxheWVyaGxzLmNvbS9lL21mMWRobmwwMzQ2Mw==" class="button" target="_blank">Episodio 4</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9pcGxheWVyaGxzLmNvbS9lLzhqeHAzbGRhdTMwcQ==" class="button" target="_blank">Episodio 5</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9pcGxheWVyaGxzLmNvbS9lLzNnaXloemsyOTNheQ==" class="button" target="_blank">Episodio 6</a>
+        </div>
+    </div>
+</div>
+
+<!-- SERIE "LOKI" -->
+
+<!-- MODAL -->
+
+<div id="modalLoki" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalLoki')">×</span>
+        <img src="https://image.tmdb.org/t/p/original/oJdVHUYrjdS2IqiNztVIP4GPB1p.jpg" alt="Loki">
+        <h3>LOKI</h3>
+        <div class="modal-info">
+            <p><i class="fas fa-calendar-alt icono"></i><strong>Año:</strong> 2021</p>
+            <p><i class="fas fa-film icono"></i><strong>Género:</strong> Drama, Sci-Fi & Fantasy</p>
+            <p><i class="fas fa-tv icono"></i><strong>Temporadas:</strong> 2</p>
+            <p><i class="fas fa-list icono"></i><strong>Episodios:</strong> 12</p>
+            <p><i class="fas fa-signal icono"></i><strong>Estado:</strong> Finalizada</p>
+            <p><i class="fas fa-info-circle icono"></i><strong>Sinopsis:</strong> Loki es llevado ante la misteriosa organización llamada AVT (Autoridad de Variación Temporal) después de los acontecimientos ocurridos en "Avengers: Endgame (2019)" y se le da a elegir enfrentarse a ser borrado de la existencia debido a que es una "variante de tiempo" o ayudar a arreglar la línea de tiempo y detener una amenaza mayor.</p>
+            <div class="video-buttons">
+                <span class="button" onclick="openInnerModal('innerModalLokiS1')">TEMPORADA 1</span>
+                <span class="button" onclick="openInnerModal('innerModalLokiS2')">TEMPORADA 2</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TEMPORADA 1 -->
+
+<div id="innerModalLokiS1" class="inner-modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeInnerModal('innerModalLokiS1')">×</span>
+        <div class="video-buttons">
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9naGJyaXNrLmNvbS9lLzZyM2hoNm42YXBudw==" class="button" target="_blank">Episodio 1</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9naGJyaXNrLmNvbS9lLzNsdXA5eG4zYXd0YQ==" class="button" target="_blank">Episodio 2</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9naGJyaXNrLmNvbS9lL2NnanR4eGx1c2JpOA==" class="button" target="_blank">Episodio 3</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9naGJyaXNrLmNvbS9lLzBxMHFwYW80dHh3cA==" class="button" target="_blank">Episodio 4</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9naGJyaXNrLmNvbS9lL3UydWkwb2lqNmQ4cw==" class="button" target="_blank">Episodio 5</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9naGJyaXNrLmNvbS9lL3M3MDFtem53ajloaw==" class="button" target="_blank">Episodio 6</a>
+        </div>
+    </div>
+</div>
+
+<!-- TEMPORADA 2 -->
+
+<div id="innerModalLokiS2" class="inner-modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeInnerModal('innerModalLokiS2')">×</span>
+        <div class="video-buttons">
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9naGJyaXNrLmNvbS9lL2E5aHFkazJqZjZkMw==" class="button" target="_blank">Episodio 1</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9naGJyaXNrLmNvbS9lL3dxODJsMzBtZnA2ZQ==" class="button" target="_blank">Episodio 2</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9naGJyaXNrLmNvbS9lLzJuemV5MDlma3IzcA==" class="button" target="_blank">Episodio 3</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9naGJyaXNrLmNvbS9lL3JuMmcyMXRoc3JiZg==" class="button" target="_blank">Episodio 4</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9naGJyaXNrLmNvbS9lLzJ2dHRsM2Foem53bQ==" class="button" target="_blank">Episodio 5</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9naGJyaXNrLmNvbS9lL2MzZ295aTVvN3QxeA==" class="button" target="_blank">Episodio 6</a>
+        </div>
+    </div>
+</div>
+
+<!-- SERIE "DULCE ESTAFA" -->
+
+<!-- MODAL -->
+
+<div id="modalDulceEstafa" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalDulceEstafa')">×</span>
+        <img src="https://image.tmdb.org/t/p/original/oSdaPdSQsXby6CswuDoRxonMrE3.jpg" alt="Dulce Estafa">
+        <h3>DULCE ESTAFA</h3>
+        <div class="modal-info">
+            <p><i class="fas fa-calendar-alt icono"></i><strong>Año:</strong> 2024</p>
+            <p><i class="fas fa-film icono"></i><strong>Género:</strong> Comedia, Drama</p>
+            <p><i class="fas fa-tv icono"></i><strong>Temporadas:</strong> 1</p>
+            <p><i class="fas fa-list icono"></i><strong>Episodios:</strong> 6</p>
+            <p><i class="fas fa-signal icono"></i><strong>Estado:</strong> Continúa</p>
+            <p><i class="fas fa-info-circle icono"></i><strong>Sinopsis:</strong> Ruth Clarke, una agricultora canadiense de jarabe de arce de mediana edad, dura y sumamente competente, se ha visto acotada por las convenciones educadas y burocráticas propias de la identidad de su país. Con la ayuda de Remy Bouchard, un pequeño tonto local y un anciano y Mike Byrne, un mafioso de bajo nivel, Ruth cambia su destino y transforma el futuro de su comunidad con el robo de millones de dólares en jarabe de arce.</p>
+            <div class="video-buttons">
+                <span class="button" onclick="openInnerModal('innerModalDulceEstafaS1')">TEMPORADA 1</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TEMPORADA 1 -->
+
+<div id="innerModalDulceEstafaS1" class="inner-modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeInnerModal('innerModalDulceEstafaS1')">×</span>
+        <div class="video-buttons">
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9naGJyaXNrLmNvbS9lL3B4cTRlZzlhaGViYQ==" class="button" target="_blank">Episodio 1</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9naGJyaXNrLmNvbS9lLzI0MmxkeGQ3NzM0Ng==" class="button" target="_blank">Episodio 2</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9naGJyaXNrLmNvbS9lLzRmMjA5NDM0OTkydg==" class="button" target="_blank">Episodio 3</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9naGJyaXNrLmNvbS9lLzh3dmNvbHFvbnc5MA==" class="button" target="_blank">Episodio 4</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9naGJyaXNrLmNvbS9lL3kxaGF6ejNjMDNyNA==" class="button" target="_blank">Episodio 5</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9naGJyaXNrLmNvbS9lL3Y3a3V0dHR6Y3k5dA==" class="button" target="_blank">Episodio 6</a>
+        </div>
+    </div>
+</div>
+
+<!-- SERIE "JUEGOS SEXUALES" -->
+
+<!-- MODAL -->
+
+<div id="modalJuegosSexuales" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalJuegosSexuales')">×</span>
+        <img src="https://image.tmdb.org/t/p/original/tWtcyehBCO9fksIj30pdtVldntw.jpg" alt="Juegos Sexuales">
+        <h3>JUEGOS SEXUALES</h3>
+        <div class="modal-info">
+            <p><i class="fas fa-calendar-alt icono"></i><strong>Año:</strong> 2024</p>
+            <p><i class="fas fa-film icono"></i><strong>Género:</strong> Drama</p>
+            <p><i class="fas fa-tv icono"></i><strong>Temporadas:</strong> 1</p>
+            <p><i class="fas fa-list icono"></i><strong>Episodios:</strong> 8</p>
+            <p><i class="fas fa-signal icono"></i><strong>Estado:</strong> Finalizada</p>
+            <p><i class="fas fa-info-circle icono"></i><strong>Sinopsis:</strong> En una universidad de élite de Washington, D.C., dos hermanastros despiadados harán lo que sea para mantenerse en la cima de la despiadada jerarquía social. Después de que un brutal incidente de novatadas amenaza a todo el sistema panhelénico de su escuela, harán lo que sea necesario para preservar su poder y reputación, incluso si eso significa seducir a la hija del vicepresidente de los Estados Unidos.</p>
+            <div class="video-buttons">
+                <span class="button" onclick="openInnerModal('innerModalJuegosSexualesS1')">TEMPORADA 1</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TEMPORADA 1 -->
+<div id="innerModalJuegosSexualesS1" class="inner-modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeInnerModal('innerModalJuegosSexualesS1')">×</span>
+        <div class="video-buttons">
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zdHJlYW1oZy5jb20vZS81cTJwcnAwMmVpMTc=" class="button" target="_blank">Episodio 1</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zdHJlYW1oZy5jb20vZS9xOW5qMjcxcmF5Y2o=" class="button" target="_blank">Episodio 2</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zdHJlYW1oZy5jb20vZS85cXR2YWxyN2I0Mm8=" class="button" target="_blank">Episodio 3</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zdHJlYW1oZy5jb20vZS9lZmx3dGp1aDB6NjM=" class="button" target="_blank">Episodio 4</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zdHJlYW1oZy5jb20vZS93ODNwMDBseXk5ZWU=" class="button" target="_blank">Episodio 5</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zdHJlYW1oZy5jb20vZS8zeGRwNWJ1OGp6NXI=" class="button" target="_blank">Episodio 6</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zdHJlYW1oZy5jb20vZS8yM3R3ODhtMTBnN2k=" class="button" target="_blank">Episodio 7</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zdHJlYW1oZy5jb20vZS8zOGhkYmM0d284NnY=" class="button" target="_blank">Episodio 8</a>
+        </div>
+    </div>
+</div>
+
+<!-- SERIE "COMO AGUA PARA CHOCOLATE" -->
+
+<!-- MODAL -->
+
+<div id="modalComoAguaParaChocolate" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalComoAguaParaChocolate')">×</span>
+        <img src="https://image.tmdb.org/t/p/original/pXNcd4z8eBihLO9I7bIVoK4mtQt.jpg" alt="Como agua para chocolate">
+        <h3>COMO AGUA PARA CHOCOLATE</h3>
+        <div class="modal-info">
+            <p><i class="fas fa-calendar-alt icono"></i><strong>Año:</strong> 2024</p>
+            <p><i class="fas fa-film icono"></i><strong>Género:</strong> Drama</p>
+            <p><i class="fas fa-tv icono"></i><strong>Temporadas:</strong> 1</p>
+            <p><i class="fas fa-list icono"></i><strong>Episodios:</strong> 6</p>
+            <p><i class="fas fa-signal icono"></i><strong>Estado:</strong> Continuá</p>
+            <p><i class="fas fa-info-circle icono"></i><strong>Sinopsis:</strong> Tita De la Garza y Pedro Múzquiz, son dos almas enamoradas que no pueden estar juntos debido a arraigadas costumbres familiares. Entonces Tita navega los tintes y sabores mágicos entre el destino dictado por su familia y la lucha por su amor en la cocina, su mayor refugio. Adaptación de HBO de la novela de Laura Esquivel.</p>
+            <div class="video-buttons">
+                <span class="button" onclick="openInnerModal('innerModalComoAguaParaChocolateS1')">TEMPORADA 1</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TEMPORADA 1 -->
+
+<div id="innerModalComoAguaParaChocolateS1" class="inner-modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeInnerModal('innerModalComoAguaParaChocolateS1')">×</span>
+        <div class="video-buttons">
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zdHJlYW1oZy5jb20vZS9qbzJvdGUwdDh3emI=" class="button" target="_blank">Episodio 1</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zdHJlYW1oZy5jb20vZS8ydjIzODR4cmllY2g=" class="button" target="_blank">Episodio 2</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zdHJlYW1oZy5jb20vZS9reWlpeGk0YnVuamk=" class="button" target="_blank">Episodio 3</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zdHJlYW1oZy5jb20vZS9vMnBwOGxvbzMxd3M=" class="button" target="_blank">Episodio 4</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zdHJlYW1oZy5jb20vZS9pMzhmNDhteDE5dGI=" class="button" target="_blank">Episodio 5</a>
+            <a href="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zdHJlYW1oZy5jb20vZS9jbDR1M3hpM3UwaWs=" class="button" target="_blank">Episodio 6</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+(function() {
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = "block";
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+    }
+
+    function openInnerModal(innerModalId) {
+        document.getElementById(innerModalId).style.display = "block";
+    }
+
+    function closeInnerModal(innerModalId) {
+        document.getElementById(innerModalId).style.display = "none";
+    }
+
+    // Función para abrir enlaces externos en una nueva pestaña
+    function openExternalLink(url) {
+        window.open(url, "_blank");
+    }
+
+    window.openModal = openModal;
+    window.closeModal = closeModal;
+    window.openInnerModal = openInnerModal;
+    window.closeInnerModal = closeInnerModal;
+    window.openExternalLink = openExternalLink;
+})();
+</script>
